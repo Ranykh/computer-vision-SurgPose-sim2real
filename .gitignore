@@ -1,0 +1,12 @@
+data/
+outputs/
+weights/
+*.pt
+*.onnx
+*.engine
+*.mp4
+*.png
+*.jpg
+__pycache__/
+.ipynb_checkpoints/
+.DS_Store

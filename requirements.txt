@@ -1,0 +1,7 @@
+ultralytics>=8.2.0
+opencv-python
+numpy
+pillow
+pyyaml
+tqdm
+# Optional: torch, torchvision, mmpose, mmcv, mmengine

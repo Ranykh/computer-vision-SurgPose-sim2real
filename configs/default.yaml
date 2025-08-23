@@ -1,0 +1,4 @@
+data_root: ${env:PROJ_DATA,/datashare/project}
+out_root: ${env:PROJ_OUT,./outputs}
+seed: 42
+image_size: [640, 640]

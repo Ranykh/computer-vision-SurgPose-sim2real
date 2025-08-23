@@ -1,0 +1,10 @@
+task: keypoints
+model: yolov8n-pose.pt
+epochs: 50
+batch: 16
+lr0: 0.01
+lrf: 0.01
+weight_decay: 0.0005
+augment: true
+synthetic_data_dir: ${env:PROJ_OUT,./outputs}/synth
+val_split: 0.1
