@@ -23,10 +23,6 @@ def main():
     # Ensure PROJ_DATA is set
     os.environ.setdefault("PROJ_DATA", "/datashare/project")
 
-    # Optional fast-mode knobs (keep if you added them in bp_render.py)
-    # os.environ.setdefault("BPROC_GPU", "1")
-    # os.environ.setdefault("BPROC_SAMPLES", "16")
-    # os.environ.setdefault("BPROC_RES_SCALE", "0.5")
 
     cmd = [
         sys.executable, "-m", "blenderproc", "run",
