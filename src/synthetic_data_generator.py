@@ -4,29 +4,39 @@ Phase 1: Synthetic data generation
 - Deliverable: synthetic_data_generator.py included in Git.
 """
 # Wrapper that runs BlenderProc with src/bp_render.py
-import argparse, os, subprocess, sys, pathlib
+# src/synthetic_data_generator.py
+import argparse, os, subprocess, sys
+from pathlib import Path
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", required=True, help="Output dir for renders + COCO")
-    ap.add_argument("--count", type=int, default=100, help="Total images to generate (>=1000 for the project)")
-    ap.add_argument("--per_obj_cap", type=int, default=100, help="Max frames per single object")
+    ap.add_argument("--count", type=int, default=120, help="Total images to generate (>=1000)")
+    ap.add_argument("--per_obj_cap", type=int, default=20, help="Max frames per single object")
     args = ap.parse_args()
 
-    outdir = pathlib.Path(args.out)
+    # Resolve absolute paths so Blender can find the script regardless of its own CWD
+    bp_script = (Path(__file__).parent / "bp_render.py").resolve()
+    outdir = Path(args.out).resolve()
     outdir.mkdir(parents=True, exist_ok=True)
 
-    # Ensure PROJ_DATA is set (defaults to /datashare/project)
+    # Ensure PROJ_DATA is set
     os.environ.setdefault("PROJ_DATA", "/datashare/project")
+
+    # Optional fast-mode knobs (keep if you added them in bp_render.py)
+    # os.environ.setdefault("BPROC_GPU", "1")
+    # os.environ.setdefault("BPROC_SAMPLES", "16")
+    # os.environ.setdefault("BPROC_RES_SCALE", "0.5")
 
     cmd = [
         sys.executable, "-m", "blenderproc", "run",
-        "src/bp_render.py",
+        str(bp_script),                  # <— ABSOLUTE path
         "--outdir", str(outdir),
         "--max_images", str(args.count),
         "--per_obj_cap", str(args.per_obj_cap),
     ]
-    print("[synthetic_data_generator] Launching:", " ".join(cmd))
+    print("[synthetic_data_generator] bp_script:", bp_script)
+    print("[synthetic_data_generator] outdir:", outdir)
     subprocess.run(cmd, check=True)
     print("[synthetic_data_generator] Done.")
 
