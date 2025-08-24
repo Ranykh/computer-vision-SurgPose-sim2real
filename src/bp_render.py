@@ -18,6 +18,8 @@ PER_OBJ_CAP = int(args.per_obj_cap)
 bproc.init()
 # Optional GPU pin:
 # bproc.renderer.set_render_devices(desired_gpu_device_type=["CUDA"], desired_gpu_ids=[0])
+if os.environ.get("BPROC_GPU", "0") == "1":
+    bproc.renderer.set_render_devices(desired_gpu_device_type=["CUDA"], desired_gpu_ids=[0])
 
 # ----- Paths from environment -----
 PROJ_DATA = os.environ.get("PROJ_DATA", "/datashare/project")
