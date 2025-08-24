@@ -1,5 +1,8 @@
 # src/bp_render.py
 # Runs INSIDE BlenderProc: "python -m blenderproc run src/bp_render.py --outdir ..."
+import os
+os.environ["MPLBACKEND"] = "Agg"  # force headless backend for Blender's Python
+
 import blenderproc as bproc  # must be imported first in this process
 import os, glob, json, random, argparse
 import numpy as np
