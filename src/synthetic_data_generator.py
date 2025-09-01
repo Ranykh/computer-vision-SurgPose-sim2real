@@ -1,17 +1,18 @@
 
 
 
-import blenderproc as bproc  # must be first in a BlenderProc script
+import blenderproc as bproc  
 bproc.init()
 
 import bpy 
-# surg-pose-sim2real/src/synthetic_data_generator.py
 # Phase-1 renderer (COCO masks+boxes now; keypoints will be added in a second pass)
 import argparse, glob, json, math, random, shutil
 from pathlib import Path
 import numpy as np
 import traceback
 import os
+from itertools import chain
+
 os.environ["MPLBACKEND"] = "Agg"  # avoid Jupyter/GUI backend inside Blender
 
 
@@ -37,7 +38,6 @@ ap.add_argument("--kps_dir", default="/home/student/surg-pose-sim2real/assets/kp
 
 args, _ = ap.parse_known_args()
 
-# right after args are parsed (keep your seeds, OUT_DIR, etc.)
 try:
     prefs = bpy.context.preferences.addons['cycles'].preferences
     if args.device == "gpu":
@@ -179,7 +179,6 @@ def auto_kp_local_from_mesh(obj):
     # Bootstrap landmarks if no JSON:
     #   tip ~ max X, handle_end ~ min X, jaw_L ~ max Y near tip, jaw_R ~ min Y near tip,
     #   hinge_base ~ mesh origin (0,0,0) in local coords.
-    # This is a heuristic. Replace with sidecar JSON for best GT.
 
     V = np.array([list(v.co) for v in obj.blender_obj.data.vertices], dtype=float)
     if V.size == 0:
@@ -395,7 +394,7 @@ def add_random_occluders_between(cam2world_list, obj, n_min=1, n_max=3):
         occ.set_rotation_euler(np.random.uniform(0, np.pi, 3).tolist())
         occ.set_cp("category_id", -1)  # won't be annotated
 
-        # neutral grey material (explicitly add one)
+        # neutral grey material 
         mat = bproc.material.create("OccMat")
         mat.set_principled_shader_value("Base Color", (0.4, 0.4, 0.4, 1.0))
         mat.set_principled_shader_value("Roughness", 0.8)
@@ -477,7 +476,6 @@ def randomize_materials(obj):
 
 
 
-# --- replace set_intrinsics_jittered() with this version (force centered principal point) ---
 def set_intrinsics_jittered():
     # jitter focal length only; force principal point to the actual render center
     fx = base_fx * random.uniform(0.90, 1.10)
@@ -494,7 +492,6 @@ def set_intrinsics_jittered():
     return fx, fy, cx, cy
 
 
-# --- replace sample_poses_around() with this version ---
 def sample_poses_around(obj_loc, target):
     poses, trials = [], 0
     while len(poses) < target and trials < target * 80:
@@ -579,7 +576,6 @@ def composite_last_n_images(json_path, n, bg_paths):
 
 
 
-# Fix category names and drop id -1 if present
 def repair_coco_categories(json_path):
     with open(json_path, "r") as f:
         coco = json.load(f)
@@ -674,8 +670,6 @@ def set_film_transparent(flag: bool):
 
 
 
-# ---- add before the while ----
-from itertools import chain
 CAT_TURN = 1  # alternate 1↔2 to guarantee both
 def pick_next_obj():
     global CAT_TURN
@@ -791,7 +785,6 @@ while images_rendered < args.max_images:
 
 
     # -------------------- POST-RENDER PIPELINE --------------------
-    # -------------------- POST-RENDER PIPELINE --------------------
     try:
         print("[debug] render keys:", list(data.keys()))
         req = ("instance_segmaps" in data) and ("instance_attribute_maps" in data) and ("colors" in data)
@@ -882,11 +875,6 @@ while images_rendered < args.max_images:
         raise
     # ------------------ END POST-RENDER PIPELINE ------------------
 
-    # ------------------ END POST-RENDER PIPELINE ------------------
-
-
-    # save back (and keep your categories repair below if you like)
-    json.dump(coco, open(COCO_JSON, "w"), indent=2)
 
 
     # Bookkeeping
