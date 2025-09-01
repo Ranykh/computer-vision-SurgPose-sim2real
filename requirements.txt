@@ -1,7 +1,31 @@
+# Python: 3.9–3.11 recommended
+
+# Core
 ultralytics>=8.2.0
-opencv-python
-numpy
-pillow
-pyyaml
-tqdm
-# Optional: torch, torchvision, mmpose, mmcv, mmengine
+torch>=2.0,<2.3            # CPU build installs by default; use the CUDA wheel if needed
+torchvision>=0.15,<0.18
+numpy>=1.23,<2.0
+opencv-python>=4.7
+PyYAML>=6.0
+tqdm>=4.65
+pillow>=9.5
+psutil>=5.9
+
+# Tracking/metrics used by Ultralytics pose/track validators
+scipy>=1.10
+lapx>=0.5.8
+filterpy>=1.4.5
+
+# Plots / quick analysis (results.csv, curves, qualitative comps)
+matplotlib>=3.7
+pandas>=2.0
+
+# Video IO for qualitative side-by-side clips
+imageio>=2.31
+imageio-ffmpeg>=0.4.8
+moviepy>=1.0.3
+
+# Requires a local Blender installation; see BlenderProc docs for setup.
+blenderproc>=2.6.1
+trimesh>=3.23.5
+shapely>=2.0
