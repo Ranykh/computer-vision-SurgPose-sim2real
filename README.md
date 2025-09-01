@@ -19,7 +19,7 @@ A reproducible pipeline for **2D pose estimation of surgical instruments** train
   - [Phase 2 — Train on Synthetic Only](#phase-2--train-on-synthetic-only)
   - [Phase 3 — Unsupervised Refinement (UDA)](#phase-3--unsupervised-refinement-uda)
   - [Inference (Images & Video)](#inference-images--video)
-- [Pretrained Weights (Downloads)](#pretrained-weights-downloads)
+- [Pretrained Weights and Videos (Downloads)](#pretrained-weights-and-videos-downloads)
 - [Troubleshooting & Tips](#troubleshooting--tips)
 
 ---
@@ -215,16 +215,24 @@ python /home/student/surg-pose-sim2real/src/video.py \
   --imgsz 960 --conf 0.25 --iou 0.5 --device 0 --stride 2
 ```
 
-## Pretrained Weights (Downloads)
+## Pretrained Weights and Videos (Downloads)
 
 
-- **Phase 2 (synthetic-only, best model):**  
+- **Phase 2 (best model synthetic-only, weights):**  
   **Local:** `runs_pose/synth_v8m_960/weights/best.pt`  
   **Download:** **[phase2_synth_v8m_best](https://drive.google.com/file/d/17nBcbHIDgAFkW4it57rJFGwdQoSP90Gj/view?usp=drive_link)**
+- **Phase 2 (results_synthetic_only.mp4):**   
+  **Download:** **[results_synthetic_only.mp4](https://drive.google.com/file/d/1m1OKWNQW-hYUm1KXwMHroSSWCXXdSQqG/view?usp=sharing)**
 
-- **Phase 3 (refined, best):**  
+
+- **Phase 3 (refined model weights):**  
   **Local:** `runs_pose/refine_v1_yolov8m_960/weights/best.pt`  
   **Download:** **[phase3_refined_v8m_best](https://drive.google.com/file/d/1G6L4rlptT-n0z5keilYoCGu4PpjEempq/view?usp=sharing)**
+- **Phase 3 (results_refined.mp4):**  
+  **Download:** **[results_refined.mp4](https://drive.google.com/file/d/14qp0jP0yf4qZF3hQUGlc4rghsWwreD_p/view?usp=sharing)**
+
+
+  
 
 ## Troubleshooting & Tips
 
