@@ -102,6 +102,11 @@ computer-vision-SurgPose-sim2real/
 └─ requirements.txt
 
 ```
+
+![Instrument pose prediction on real frame](scripts/real_frame_01 (1).png)
+
+
+
 ## Reproduce the Results (Step-by-Step)
 
 Below are the exact commands ( `Main.ipynb` in src) to regenerate the dataset, train the models, refine with pseudo-labels, and run inference.
