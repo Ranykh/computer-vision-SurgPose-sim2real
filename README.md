@@ -103,8 +103,10 @@ computer-vision-SurgPose-sim2real/
 
 ```
 
-![Instrument pose prediction on real frame](scripts/real_frame_01 (1).png)
 
+<p align="center">
+  <img src="scripts/real_frame_01 (1).png" alt="Instrument pose prediction" width="520">
+</p>
 
 
 ## Reproduce the Results (Step-by-Step)
