@@ -9,6 +9,18 @@ A reproducible pipeline for **2D pose estimation of surgical instruments** train
 
 I built an end-to-end sim-to-real surgical tool pose estimator: first generating a COCO-format synthetic dataset for two instruments (needle holder, tweezers) with a unified 5-keypoint schema ⟨tip, jaw_L, jaw_R, hinge_base, handle_end⟩ and reliable COCO visibility flags via mask+depth checks (v∈{0,1,2}). To close domain gaps, the BlenderProc pipeline randomized camera intrinsics, lighting (studio/HDRI), materials, backgrounds (COCO compositing), and injected geometric occluders—yielding 1,150 labeled images with boxes, masks, intrinsics, and keypoints.  On top of this, I trained Ultralytics YOLOv8 pose models (n/s/m) with AdamW and cosine LR, selecting the v8m run for the best synth-set pose performance (mAP50:95=0.752; box mAP50:95=0.963).  I then implemented an unsupervised refinement stage on real surgical video using a teacher–student pipeline with OKS-NMS, temporal consistency filtering, and selective pseudo-labels, followed by a short, partially frozen fine-tune—improving pose mAP50:95 to 0.798 (+6.1% relative) while preserving strong detection quality.  The codebase includes modular data exporters, training scripts, and UDA utilities (frame extraction, pseudo-labeling, track filtering), making the results reproducible and deployment-ready. 
 
+<table>
+  <tr>
+    <td><img src="scripts/sample_00 (1).png" alt="Example 1" width="100%"></td>
+    <td><img src="scripts/sample_03 (1).png" alt="Example 2" width="100%"></td>
+  </tr>
+  <tr>
+    <td><img src="scripts/sample_05 (1).png" alt="Example 3" width="100%"></td>
+    <td><img src="scripts/sample_17 (1).png" alt="Example 4" width="100%"></td>
+  </tr>
+</table>
+
+
 
 Medical References:
 1. None — DOI: file-Xvtc639YfcANQwxukmvw22
