@@ -15,7 +15,7 @@ I built an end-to-end sim-to-real surgical tool pose estimator: first generating
 
 <table>
   <tr>
-    <td><img src="scripts/occlider.png" alt="Example 1" width="100%"></td>
+    <td><img src="scripts/occlider.png" alt="Example 1" width="90%"></td>
     <td><img src="scripts/sample_03 (1).png" alt="Example 2" width="100%"></td>
   </tr>
   <tr>
